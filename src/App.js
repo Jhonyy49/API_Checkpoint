@@ -1,25 +1,22 @@
-import logo from './logo.svg';
-import './App.css';
+import axios from "axios";
+import React, { Component } from "react";
+import UserList from "./components/UserList";
+import "./style.css";
+class App extends Component {
+  state = { users: [] };
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  async componentDidMount() {
+    let result = await axios.get("https://jsonplaceholder.typicode.com/users");
+    this.setState({ users: result.data });
+  }
+
+  render() {
+    return (
+      <div>
+        <UserList />
+      </div>
+    );
+  }
 }
 
 export default App;
